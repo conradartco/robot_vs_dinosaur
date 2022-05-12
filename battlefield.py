@@ -8,9 +8,7 @@ class Battlefield:
 
     def run_game(self):
         self.display_welcome()
-        self.battle_start = True
         self.battle_phase()
-        self.display_winner()
 
     def display_welcome(self):
         print('\nWelcome to the battle arena!\nTwo compettitors enter, only one leaves...\n')
@@ -19,19 +17,15 @@ class Battlefield:
     def battle_phase(self):
         # this needs to pit the dinosaur against the robot
         # self.hit = self.robot_one.attack(self.dino_one)
-        while self.battle_start is True:
+        while self.robot_one.robot_health > 0 and self.dino_one.dino_health > 0:
             self.dino_one.dino_health = self.robot_one.attack(self.dino_one.dino_health)
             self.robot_one.robot_health = self.dino_one.attack(self.robot_one.robot_health)
-            if self.dino_one.dino_health > 0:
-                print(self.dino_one.dino_health)
-            elif self.robot_one.robot_health > 0:
-                print(self.robot_one.robot_health)
-            elif self.dino_one.dino_health <= 0:
-                print(f"{self.dino_one.dino_name} has been mercilessly defeated!")
-                self.battle_start == False
+            if self.dino_one.dino_health <= 0:
+                self.display_winner()
+                break
             elif self.robot_one.robot_health <= 0:
-                self.battle_start == False
-                print(f"{self.robot_one.robot_name} has been vanquished!")
+                self.display_winner()
+                break
              
     def display_winner(self):
         if self.dino_one.dino_health <= 0:
